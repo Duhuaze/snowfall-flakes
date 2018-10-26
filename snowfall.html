@@ -1,0 +1,105 @@
+<!doctype html> 
+<html>
+<head>
+   <meta charset = "utf-8">
+   <meta name="Keyword" content="love">
+   <meta name="Description"content="爱心飘落特效">
+   <title>爱心飘落-DHZ</title>
+
+   <style type="text/css">
+        html{
+        	height: 100%;
+        }
+   		body{
+   			margin:0px;
+   			height: 100%;
+   			background: url("https://ss2.bdstatic.com/lfoZeXSm1A5BphGlnYG/skin/829.jpg?2") no-repeat center/cover;
+   			overflow: hidden;/*溢出隐藏 目的：消除抖动*/
+   		}
+   		.snowfall-flakes{
+   			background-repeat: no-repeat;
+   			background-position: center;
+   			background-size: cover;
+   		}
+    	.snowfall-flakes:before,.snowfall-flakes:after{
+			content: "";/*content:""为左膀右臂的激活代码，不可删除*/
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 10px;
+			height:16px;
+			background-color: red;
+			border-radius: 5px 5px 0px 0px;/*顺时针 左上 右上 右下 左下*/
+		}
+		.snowfall-flakes:before{
+
+			transform:rotate(-45deg);
+		}
+		.snowfall-flakes:after{
+
+			transform:translateX(4.3px) rotate(45deg);
+		}
+		.btn{
+			width: 50px;
+			height: 50px;
+			background-image: url("images/upseek.png");
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+		.btn:hover{
+			background-position-Y:-64px;
+		}
+
+   </style>
+</head>
+<body>
+	<!-- <div class="snowfall-flakes"></div> -->
+	<div id="leafContainer" style="height:100%">
+		<!-- <button class="switchBtn">开关</button> -->
+		<div class="btn"></div>
+	</div>
+	<script src="js/jquery-1.2.6.min.js"></script>
+	<script src="js/snowfall.jquery.js"></script>
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/snowfall.js"></script>
+	
+	<script>
+
+		function init()
+			    {	
+			        var img_url = [];
+			        for(var i=1;i<=8;i++){
+			            var s_url = 'images/hb_0'+i+'.png';
+			            img_url.push(s_url);
+			        }
+
+                    $(document).snowfall({flakeCount:80,maxSpeed:5});<!--开启特效-->
+
+			        $("#leafContainer").snowfall({
+			            image: img_url, //img_url 图片地址数组
+			            flakeCount:30,
+			            minSize: 5,
+			            maxSize: 50,
+			            maxSpeed : 3,
+			        });
+			    }
+                
+			    $(".btn").click(function(){
+			    	var $this = $(this);
+			    	var isClose = $this.hasClass("close");
+			    	if(isClose){
+						$this.removeClass("close")
+						init() //开启
+
+			    	} else {
+			    		$this.addClass("close")
+			    		$('#leafContainer').snowfall('clear'); //关闭
+			    		$(document).snowfall('clear');
+			    	}
+			    })
+
+			    init();//初始
+	</script>
+</body>
+</html>
